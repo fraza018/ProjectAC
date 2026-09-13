@@ -231,8 +231,10 @@ mapa_generos = {
     "Puzzle": "Quebra-Cabeça",
     "Strategy": "Estratégia"
 }
-df_tratado["Genero"] = df_tratado["Genre"].map(mapa_generos).fillna(df_tratado["Genre"])
-print("- Coluna 'Genero' criada com nomes em português (Ação, Esportes, Tiro, RPG...).")
+# Traduzimos a própria coluna Genre (para atualizar automaticamente o visual existente)
+df_tratado["Genre"] = df_tratado["Genre"].map(mapa_generos).fillna(df_tratado["Genre"])
+df_tratado["Genero"] = df_tratado["Genre"]
+print("- Coluna 'Genre' e 'Genero' traduzidas com sucesso para português.")
 
 # 5.7 Colunas de Vendas Regionais com nomes em Português
 df_tratado["Vendas_Am_Norte"] = df_tratado["NA_Sales"]
