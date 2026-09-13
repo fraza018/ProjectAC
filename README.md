@@ -1,50 +1,56 @@
-# 🎮 Projeto de Análise de Jogos (Video Game Sales)
+# 🎮 Análise de Vendas da Indústria de Games
 
-Este projeto realiza a análise exploratória e o tratamento de dados sobre o histórico de vendas de jogos de videogame no mundo, utilizando a base de dados **vgsales**.
+Projeto prático de análise de dados exploratória, tratamento e visualização de vendas de videogames ao longo das décadas.
+
+> **Status do Projeto:** Entrega 1/3 (Fundação de Dados & Dashboard MVP)
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📌 Escopo da Entrega 1
+- **ETL em Python:** Tratamento, limpeza e enriquecimento do dataset original (`vgsales.csv`).
+  - Tratamento de valores nulos e inconsistências de catálogo.
+  - Correção de tipos de dados (`Year` convertido para inteiro).
+  - *Feature Engineering*: criação de colunas estratégicas (`Fabricante`, `Tipo_Plataforma`, `Decada`, `Maior_Mercado` e `Faixa_Vendas`).
+  - Exportação da base padronizada em `UTF-8 com BOM` para integração com o Power BI.
+- **Estrutura do Projeto:** Organização de diretórios para reprodutibilidade e versionamento.
+- **Visualização (Power BI):** Construção do dashboard inicial (MVP).
 
-```plaintext
+---
+
+## 📁 Estrutura de Pastas
+
+```text
 ProjetoDeJogos/
 ├── Dados/
-│   ├── Bruto/         # Base de dados original (vgsales.csv)
-│   └── Tratado/       # Dados limpos e tratados (vgsales_tratado.csv)
+│   ├── Bruto/               # Base original de dados (vgsales.csv)
+│   └── Tratado/             # Base limpa e enriquecida gerada pelo Python
 ├── scripts/
-│   ├── analise_inicial.py    # Script de exploração inicial dos dados
-│   └── tratamento_dados.py   # Script de limpeza, enriquecimento e tratamento
-├── dashboard/         # Visualizações e dashboards (em desenvolvimento)
-├── .gitignore         # Arquivos ignorados pelo Git (.venv, caches, etc.)
-└── README.md          # Documentação do projeto
+│   ├── analise_inicial.py   # Script de exploração inicial dos dados
+│   └── tratamento_dados.py  # Pipeline de limpeza, transformação e enriquecimento
+├── dashboard/               # Arquivos .pbix do Power BI
+├── .gitignore               # Arquivos ignorados pelo Git
+└── README.md                # Documentação do projeto
 ```
 
 ---
 
-## 🚀 Como Executar
+## 🚀 Como Executar (Ambiente Local)
 
-### 1. Criar e Ativar Ambiente Virtual
+O projeto utiliza um ambiente virtual Python para gerenciar dependências.
 
-No terminal (PowerShell no Windows):
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
+1. **Instalar Dependências:**
+   ```bash
+   pip install pandas matplotlib seaborn
+   ```
 
-### 2. Instalar Dependências
+2. **Executar o Script de ETL:**
+   ```bash
+   python scripts/tratamento_dados.py
+   ```
 
-```powershell
-pip install pandas
-```
+---
 
-### 3. Executar os Scripts
-
-- **Análise Inicial:**
-  ```powershell
-  python scripts/analise_inicial.py
-  ```
-
-- **Tratamento de Dados:**
-  ```powershell
-  python scripts/tratamento_dados.py
-  ```
+## 📦 Tecnologias e Ferramentas
+- **Python 3.8+**
+- **Pandas** (Tratamento e manipulação de dados)
+- **Power BI Desktop** (Modelagem de dados, DAX e visualizações)
