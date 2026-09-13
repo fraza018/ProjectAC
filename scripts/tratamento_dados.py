@@ -216,6 +216,31 @@ def classificar_faixa_vendas(venda_global):
 df_tratado["Faixa_Vendas"] = df_tratado["Global_Sales"].apply(classificar_faixa_vendas)
 print("- Coluna 'Faixa_Vendas' criada (Segmentação comercial: Super-Hit, Sucesso, Médio, Nicho).")
 
+# 5.6 Tradução dos Gêneros para Português
+mapa_generos = {
+    "Action": "Ação",
+    "Sports": "Esportes",
+    "Shooter": "Tiro",
+    "Role-Playing": "RPG",
+    "Platform": "Plataforma",
+    "Misc": "Diversos",
+    "Racing": "Corrida",
+    "Fighting": "Luta",
+    "Simulation": "Simulação",
+    "Adventure": "Aventura",
+    "Puzzle": "Quebra-Cabeça",
+    "Strategy": "Estratégia"
+}
+df_tratado["Genero"] = df_tratado["Genre"].map(mapa_generos).fillna(df_tratado["Genre"])
+print("- Coluna 'Genero' criada com nomes em português (Ação, Esportes, Tiro, RPG...).")
+
+# 5.7 Colunas de Vendas Regionais com nomes em Português
+df_tratado["Vendas_Am_Norte"] = df_tratado["NA_Sales"]
+df_tratado["Vendas_Europa"] = df_tratado["EU_Sales"]
+df_tratado["Vendas_Japao"] = df_tratado["JP_Sales"]
+df_tratado["Vendas_Outros"] = df_tratado["Other_Sales"]
+print("- Colunas de vendas em português criadas (Vendas_Am_Norte, Vendas_Europa...).")
+
 # ==============================================================================
 # 6. VALIDAÇÃO FINAL DOS DADOS TRATADOS
 # ==============================================================================

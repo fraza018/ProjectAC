@@ -113,7 +113,8 @@ plt.close()
 # ==============================================================================
 print("4. Gerando gráfico: Vendas por Gênero...")
 plt.figure(figsize=(10, 6), dpi=300)
-vendas_genero = df.groupby("Genre")["Global_Sales"].sum().sort_values(ascending=True)
+coluna_gen = "Genero" if "Genero" in df.columns else "Genre"
+vendas_genero = df.groupby(coluna_gen)["Global_Sales"].sum().sort_values(ascending=True)
 
 cores_gen = sns.color_palette("mako", len(vendas_genero))
 bars_gen = plt.barh(vendas_genero.index, vendas_genero.values, color=cores_gen, height=0.65)
