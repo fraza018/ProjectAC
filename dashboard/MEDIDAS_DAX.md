@@ -82,21 +82,23 @@ TOPN(
 
 ---
 
-## 🎨 Sugestão de Layout para o Dashboard MVP
+## 🎨 Estrutura do Dashboard MVP Entregue (AC1)
 
-* **Linha Superior (Cards de KPIs):**
-  * Card 1: `Total Vendas Globais` (em Milhões de dólares)
-  * Card 2: `Total de Jogos`
-  * Card 3: `Fabricante Líder`
-  * Card 4: `% Vendas NA`
-* **Painel Central Esquerdo:**
-  * Gráfico de Linhas/Área: `Total Vendas Globais` por `Year` ou `Decada`.
-  * Gráfico de Barras: Top 10 Jogos por `Total Vendas Globais`.
-* **Painel Central Direito:**
-  * Gráfico de Rosca: `Distribuição Regional` (`Vendas NA`, `Vendas EU`, `Vendas JP`, `Vendas Outros`).
-  * Gráfico de Barras Horizontais: `Total Vendas Globais` por `Genre`.
-* **Filtros Laterais (Slicers):**
-  * `Fabricante` (Nintendo, Sony, Microsoft...)
-  * `Decada` (Anos 80, 90, 2000, 2010+)
-  * `Tipo_Plataforma` (Console de Mesa, Portátil, Computador)
-  * `Faixa_Vendas` (Super-Hit, Sucesso, Médio, Nicho)
+O arquivo [`AC1.pbix`](AC1.pbix) foi estruturado com os seguintes visuais e componentes:
+
+* **Linha Superior (Cards de KPIs em Container):**
+  * Card 1: `Total Vendas Globais` (Volume de receita global acumulada)
+  * Card 2: `Total de Jogos` (Quantidade de títulos catalogados)
+  * Card 3: `Ticket Medio por Jogo` (Média de faturamento por jogo)
+
+* **Quadrante Superior Esquerdo:**
+  * **Gráfico de Área:** *Evolução Histórica das Vendas (1980 - 2016)* (Eixo X: `Year`, Eixo Y: `Total Vendas Globais`). Destaca a ascensão das 6ª e 7ª gerações de consoles.
+
+* **Quadrante Superior Direito:**
+  * **Gráfico de Colunas:** *Vendas Globais por Fabricante* (Eixo X: `Fabricante`, Eixo Y: `Total Vendas Globais`, com Rótulos de Dados ativos). Demonstra o domínio da Sony e Nintendo.
+
+* **Quadrante Inferior Esquerdo:**
+  * **Gráfico de Barras Horizontais:** *Vendas Globais por Gênero* (Eixo Y: `Genre` / `Genero`, Eixo X: `Total Vendas Globais`, com Rótulos de Dados ativos). Evidencia Ação e Esportes como líderes mundiais.
+
+* **Quadrante Inferior Direito:**
+  * **Gráfico de Rosca:** *Participação por Região* (Valores: `América do Norte`, `Europa`, `Japão`, `Outros`). Aponta a América do Norte como responsável por quase 50% da receita global.
