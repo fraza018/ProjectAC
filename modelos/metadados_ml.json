@@ -1,0 +1,69 @@
+{
+    "top_publishers": [
+        "Electronic Arts",
+        "Activision",
+        "Namco Bandai Games",
+        "Ubisoft",
+        "Konami Digital Entertainment",
+        "THQ",
+        "Nintendo",
+        "Sony Computer Entertainment",
+        "Sega",
+        "Take-Two Interactive",
+        "Capcom",
+        "Atari",
+        "Tecmo Koei",
+        "Square Enix",
+        "Warner Bros. Interactive Entertainment",
+        "Disney Interactive Studios",
+        "Eidos Interactive",
+        "Midway Games",
+        "505 Games",
+        "Microsoft Game Studios",
+        "Acclaim Entertainment",
+        "D3Publisher",
+        "Vivendi Games",
+        "Codemasters",
+        "Unknown"
+    ],
+    "metricas_regressao": {
+        "Ridge Regression (Baseline)": {
+            "MAE": 0.5368,
+            "RMSE": 1.5394,
+            "R2": 0.1513
+        },
+        "Random Forest Regressor": {
+            "MAE": 0.5125,
+            "RMSE": 1.6198,
+            "R2": 0.0603
+        },
+        "HistGradientBoosting Regressor": {
+            "MAE": 0.5367,
+            "RMSE": 1.5424,
+            "R2": 0.148
+        }
+    },
+    "metricas_classificacao": {
+        "Regressão Logística": {
+            "Acuracia": 0.7263,
+            "Precisao": 0.2769,
+            "Recall": 0.7257,
+            "F1-Score": 0.4008,
+            "ROC-AUC": 0.8122
+        },
+        "Random Forest Classifier": {
+            "Acuracia": 0.7336,
+            "Precisao": 0.2872,
+            "Recall": 0.75,
+            "F1-Score": 0.4153,
+            "ROC-AUC": 0.828
+        },
+        "HistGradientBoosting Classifier": {
+            "Acuracia": 0.7569,
+            "Precisao": 0.3078,
+            "Recall": 0.7427,
+            "F1-Score": 0.4353,
+            "ROC-AUC": 0.8432
+        }
+    }
+}
