@@ -92,7 +92,7 @@ def carregar_e_preparar_dados():
     print(f"Features preditivas selecionadas: {features_categoricas + features_numericas}")
     print(f"Distribuição do Alvo de Classificação (Hit >= 1M): {df['Is_Hit'].mean()*100:.2f}% Hits ({df['Is_Hit'].sum()} jogos)")
     
-    return X, y_reg, y_clf, features_categoricas, features_numericas, top_publishers
+    return X, y_reg, y_clf, features_categoricas, features_numericas, top_publishers, df
 
 
 def construir_preprocessor(features_categoricas, features_numericas):
@@ -444,10 +444,58 @@ def salvar_artefatos(melhor_pipe_reg, melhor_pipe_clf, top_publishers,
     print(f"-> Metadados e métricas salvos em: {caminho_meta}")
 
 
+def exportar_base_enriquecida_powerbi(df_original, X, melhor_pipe_reg, melhor_pipe_clf):
+    """
+    Gera previsões para todos os jogos da base e exporta colunas
+    analíticas prontas para o Power BI.
+    """
+    print("\n" + "=" * 70)
+    print("6. EXPORTANDO BASE ENRIQUECIDA COM MACHINE LEARNING PARA O POWER BI")
+    print("=" * 70)
+    
+    # Gerar predições de vendas e probabilidade de hit
+    vendas_pred = np.clip(melhor_pipe_reg.predict(X), 0.01, None).round(2)
+    prob_hit = (melhor_pipe_clf.predict_proba(X)[:, 1] * 100).round(1)
+    hit_pred = np.where(prob_hit >= 50.0, "Sim", "Não")
+    
+    # Desvio e Desempenho Real vs Previsto
+    dif_real_prev = (df_original["Global_Sales"] - vendas_pred).round(2)
+    
+    def classificar_desempenho(row):
+        real = row["Global_Sales"]
+        pred = row["Vendas_Previstas"]
+        if real >= pred * 1.5 and real >= 1.0:
+            return "1. Superou Expectativas"
+        elif real <= pred * 0.5:
+            return "3. Abaixo do Esperado"
+        else:
+            return "2. Dentro do Esperado"
+            
+    df_export = df_original.copy()
+    df_export["Vendas_Previstas"] = vendas_pred
+    df_export["Probabilidade_Hit"] = prob_hit
+    df_export["Hit_Previsto"] = hit_pred
+    df_export["Dif_Real_Previsto"] = dif_real_prev
+    df_export["Desempenho_vs_Modelo"] = df_export.apply(classificar_desempenho, axis=1)
+    
+    # Salvar tanto no arquivo oficial vgsales_tratado.csv (para atualizar direto no Power BI existente)
+    # quanto em vgsales_ml_powerbi.csv
+    caminho_oficial = BASE_DIR / "Dados" / "Tratado" / "vgsales_tratado.csv"
+    caminho_ml = BASE_DIR / "Dados" / "Tratado" / "vgsales_ml_powerbi.csv"
+    
+    df_export.to_csv(caminho_oficial, index=False, encoding="utf-8-sig")
+    df_export.to_csv(caminho_ml, index=False, encoding="utf-8-sig")
+    
+    print(f"-> Base atualizada com sucesso para Power BI:")
+    print(f"   Arquivo 1: {caminho_oficial}")
+    print(f"   Arquivo 2: {caminho_ml}")
+    print("   Colunas adicionadas: 'Vendas_Previstas', 'Probabilidade_Hit', 'Hit_Previsto', 'Dif_Real_Previsto', 'Desempenho_vs_Modelo'")
+
+
 def main():
     print("Iniciando Pipeline de Machine Learning Preditivo (AC2)...")
     
-    X, y_reg, y_clf, features_cat, features_num, top_publishers = carregar_e_preparar_dados()
+    X, y_reg, y_clf, features_cat, features_num, top_publishers, df_original = carregar_e_preparar_dados()
     
     # Divisão Estratificada para classificação e treino/teste consistente (80% treino / 20% teste)
     indices_train, indices_test = train_test_split(
@@ -488,6 +536,11 @@ def main():
     salvar_artefatos(
         melhor_pipe_reg, melhor_pipe_clf, top_publishers,
         resultados_reg, resultados_clf
+    )
+    
+    # Exportar base enriquecida para o Power BI
+    exportar_base_enriquecida_powerbi(
+        df_original, X, melhor_pipe_reg, melhor_pipe_clf
     )
     
     print("\n" + "=" * 70)
